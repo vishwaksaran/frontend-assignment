@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Pagination from './Pagination'; // Import the Pagination component
 
 const App = () => {
   const [projects, setProjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
-  const [currentPageSet, setCurrentPageSet] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [theme, setTheme] = useState('light'); 
   const itemsPerPage = 5;
-  const pageNumbersPerSet = 10;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,65 +35,23 @@ const App = () => {
   }, [theme]);
 
   const totalPages = Math.ceil(projects.length / itemsPerPage);
-  const totalPagesSets = Math.ceil(totalPages / pageNumbersPerSet);
   const offset = currentPage * itemsPerPage;
   const currentItems = projects.slice(offset, offset + itemsPerPage);
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
-    setCurrentPageSet(Math.floor(pageNumber / pageNumbersPerSet));
   };
 
   const handlePrevPageSet = () => {
-    if (currentPageSet > 0) {
-      setCurrentPageSet(currentPageSet - 1);
-      setCurrentPage((currentPageSet - 1) * pageNumbersPerSet);
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
     }
   };
 
   const handleNextPageSet = () => {
-    if (currentPageSet < totalPagesSets - 1) {
-      setCurrentPageSet(currentPageSet + 1);
-      setCurrentPage((currentPageSet + 1) * pageNumbersPerSet);
+    if (currentPage < totalPages - 1) {
+      setCurrentPage(currentPage + 1);
     }
-  };
-
-  const renderPagination = () => {
-    const pageNumbers = [];
-    const startPage = currentPageSet * pageNumbersPerSet;
-    const endPage = Math.min(startPage + pageNumbersPerSet, totalPages);
-
-    for (let i = startPage; i < endPage; i++) {
-      pageNumbers.push(
-        <button
-          key={i}
-          onClick={() => handlePageClick(i)}
-          className={currentPage === i ? 'active' : ''}
-        >
-          {i + 1}
-        </button>
-      );
-    }
-
-    return (
-      <div className="pagination">
-        <button
-          onClick={handlePrevPageSet}
-          disabled={currentPageSet === 0}
-          className="arrow"
-        >
-          &lt;
-        </button>
-        {pageNumbers}
-        <button
-          onClick={handleNextPageSet}
-          disabled={currentPageSet === totalPagesSets - 1}
-          className="arrow"
-        >
-          &gt;
-        </button>
-      </div>
-    );
   };
 
   const toggleTheme = () => {
@@ -152,7 +110,15 @@ const App = () => {
         </thead>
         <tbody>{tableBodyContent}</tbody>
       </table>
-      {totalPages > 1 && renderPagination()}
+      {totalPages > 1 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          handlePageClick={handlePageClick}
+          handlePrevPageSet={handlePrevPageSet}
+          handleNextPageSet={handleNextPageSet}
+        />
+      )}
     </div>
   );
 };
