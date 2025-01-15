@@ -40,6 +40,9 @@ h1 {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
+  outline: 2px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .project-table th,
