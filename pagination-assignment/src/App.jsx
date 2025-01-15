@@ -5,19 +5,26 @@ const App = () => {
   const [projects, setProjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [currentPageSet, setCurrentPageSet] = useState(0);
+  const [theme, setTheme] = useState('light'); 
   const itemsPerPage = 5;
   const pageNumbersPerSet = 10;
-
-  
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('https://raw.githubusercontent.com/saaslabsco/frontend-assignment/refs/heads/master/frontend-assignment.json');
-      const data = await response.json();
-      setProjects(data);
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/saaslabsco/frontend-assignment/refs/heads/master/frontend-assignment.json');
+        const data = await response.json();
+        setProjects(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
 
   const totalPages = Math.ceil(projects.length / itemsPerPage);
   const totalPagesSets = Math.ceil(totalPages / pageNumbersPerSet);
@@ -81,20 +88,27 @@ const App = () => {
     );
   };
 
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
     <div className="app-container">
+      <button onClick={toggleTheme} className="theme-toggle">
+        Toggle Theme
+      </button>
       <h1>Project Funding</h1>
       <table className="project-table">
         <thead>
-          <tr className='table-heading'>
+          <tr className="table-heading">
             <th>S.No.</th>
             <th>Percentage Funded</th>
             <th>Amount Pledged</th>
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((project) => (
-            <tr key={project['s.no']}>
+          {currentItems.map((project, index) => (
+            <tr key={index}>
               <td>{project['s.no']}</td>
               <td>{project['percentage.funded']}%</td>
               <td>${project['amt.pledged'].toLocaleString()}</td>

@@ -1,61 +1,192 @@
-body{
-  justify-content: center;
+:root {
+  --background-color-light: #ffffff;
+  --text-color-light: #333333;
+  --table-header-background-light: #f8f9fa;
+  --table-row-background-light: #ffffff;
+  --table-row-hover-light: #e9ecef;
+  --pagination-button-background-light: #007bff;
+  --pagination-button-text-light: #ffffff;
+  --pagination-button-disabled-light: #cccccc;
+
+  --background-color-dark: #121212;
+  --text-color-dark: #ffffff;
+  --table-header-background-dark: #222222;
+  --table-row-background-dark: #1e1e1e;
+  --table-row-hover-dark: #333333;
+  --pagination-button-background-dark: #bb86fc;
+  --pagination-button-text-dark: #000000;
+  --pagination-button-disabled-dark: #444444;
 }
 
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+body {
+  margin: 0;
   font-family: Arial, sans-serif;
+  background-color: var(--background-color-light);
+  justify-content: center;
+  color: var(--text-color-light);
+  transition: background-color 0.3s, color 0.3s;
 }
 
+.app-container {
+  padding: 20px;
+}
 
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 .project-table {
   width: 100%;
-  min-width: 560px;
   border-collapse: collapse;
   margin-bottom: 20px;
 }
 
-.project-table th, .project-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+.project-table th,
+.project-table td {
+  padding: 10px;
   text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 .project-table th {
-  background-color: #f2f2f2;
+  background-color: var(--table-header-background-light);
+  color: var(--text-color-light);
+}
+
+.project-table tr:nth-child(even) {
+  background-color: var(--table-row-background-light);
+}
+
+.project-table tr:hover {
+  background-color: var(--table-row-hover-light);
 }
 
 .pagination {
   display: flex;
   justify-content: center;
-  list-style: none;
-  padding: 0;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.20rem;
 }
 
 .pagination button {
   margin: 0 5px;
   padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--background-color-dark);
+  color: var(--pagination-button-text-light);
   cursor: pointer;
-  border: 1px solid #ddd;
-  background-color: #fff;
-}
-
-.table-heading > th {
-  width: 33.33%;
+  transition: background-color 0.3s;
 }
 
 .pagination button.active {
-  font-weight: bold;
-  color: #007bff;
-  border-color: #007bff;
+  background-color: var(--background-color-light);
+  color: var(--background-color-dark);
+  border: 2px solid;
 }
 
-.arrow{
-  display: flex;
-  flex-direction: column;
-  line-height: 17px;
+.pagination button:disabled {
+  background-color: var(--pagination-button-disabled-light);
+  cursor: not-allowed;
+}
+
+.pagination .arrow {
+  background-color: var(--background-color-dark);
+  color: var(--pagination-button-text-light);
+}
+
+.pagination .arrow  {
+  background-color: var(--pagination-button-hover-light);
+  color:#000000;
+  border: 2px solid;
+}
+
+.pagination .arrow:disabled {
+  background-color: var(--pagination-button-disabled-light);
+}
+
+/* Dark Theme */
+body[data-theme="dark"] {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+}
+
+body[data-theme="dark"] .project-table th {
+  background-color: var(--table-header-background-dark);
+  color: var(--text-color-dark);
+}
+
+body[data-theme="dark"] .project-table tr:nth-child(even) {
+  background-color: var(--table-row-background-dark);
+}
+
+body[data-theme="dark"] .project-table tr:hover {
+  background-color: var(--table-row-hover-dark);
+}
+
+body[data-theme="dark"] .pagination button {
+  background-color: var(--background-color-light);
+  color: var(--pagination-button-text-dark);
+}
+
+body[data-theme="dark"] .pagination button.active {
+  background-color: var(--background-color-dark);
+  color: #ffffff;
+  border: 2px solid #fff;
+}
+
+body[data-theme="dark"] .pagination button:disabled {
+  background-color: var(--pagination-button-disabled-dark);
+}
+
+body[data-theme="dark"] .pagination .arrow {
+  background-color: var(--background-color-light);
+  color: var(--pagination-button-text-dark);
+}
+
+body[data-theme="dark"] .pagination .arrow {
+  background-color: var(--pagination-button-hover-dark);
+  color: #fff;
+}
+
+body[data-theme="dark"] .pagination .arrow:disabled {
+  background-color: var(--pagination-button-disabled-dark);
+  color: #fff;
+}
+
+
+@media (max-width: 600px) {
+  .project-table {
+    font-size: 14px;
+  }
+
+  .project-table th,
+  .project-table td {
+    padding: 8px;
+  }
+
+  .pagination button {
+    margin: 5px 0;
+  }
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--background-color-dark);
+  color: var(--pagination-button-text-light);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+body[data-theme="dark"] .theme-toggle {
+  background-color: var(--background-color-light);
+  color: var(--pagination-button-text-dark);
 }
