@@ -1,0 +1,61 @@
+body{
+  justify-content: center;
+}
+
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+
+
+.project-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.project-table th, .project-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.project-table th {
+  background-color: #f2f2f2;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  background-color: #fff;
+}
+
+.table-heading > th {
+  width: 33.33%;
+}
+
+.pagination button.active {
+  font-weight: bold;
+  color: #007bff;
+  border-color: #007bff;
+}
+
+.arrow{
+  display: flex;
+  flex-direction: column;
+  line-height: 17px;
+}
