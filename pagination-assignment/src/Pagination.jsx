@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Pagination = ({ totalPages, currentPage, handlePageClick, handlePrevPageSet, handleNextPageSet }) => {
-  const pageNumbersPerSet = 10;
+  const[pageNumbersPerSet, setPageNumbersPerSet] = useState(0);
   const totalPagesSets = Math.ceil(totalPages / pageNumbersPerSet);
 
   const halfSetSize = Math.floor(pageNumbersPerSet / 2);
@@ -25,6 +25,21 @@ const Pagination = ({ totalPages, currentPage, handlePageClick, handlePrevPageSe
       </button>
     );
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setPageNumbersPerSet(5);
+      } else {
+        setPageNumbersPerSet(10);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <div className="pagination">

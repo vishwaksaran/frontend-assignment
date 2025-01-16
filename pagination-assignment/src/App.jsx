@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import Pagination from './Pagination'; // Import the Pagination component
+import Pagination from './Pagination';
 
 const App = () => {
   const [projects, setProjects] = useState([]);
